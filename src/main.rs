@@ -1,6 +1,9 @@
-use clap::{ Parser};
+use clap::Parser;
 use std::{
-    fmt::Display, fs::File, io::{BufRead, BufReader, Error,}, path::PathBuf
+    fmt::Display,
+    fs::File,
+    io::{BufRead, BufReader, Error},
+    path::PathBuf,
 };
 
 /* Do not modify this */
@@ -35,7 +38,6 @@ pub enum Command {
     },
 }
 
-
 #[allow(dead_code)]
 #[derive(Debug, Default)]
 struct CSVFile {
@@ -47,7 +49,13 @@ struct CSVFile {
 pub trait CSVFileReader {
     fn read(&mut self, file_path: PathBuf) -> Result<Vec<String>, Error>;
 
-    fn write(&mut self, file_path: PathBuf, row: usize, col: usize, data: String) -> Result<(), Error>;
+    fn write(
+        &mut self,
+        file_path: PathBuf,
+        row: usize,
+        col: usize,
+        data: String,
+    ) -> Result<(), Error>;
 }
 
 impl CSVFileReader for CSVFile {
@@ -63,12 +71,17 @@ impl CSVFileReader for CSVFile {
         Ok(file_content)
     }
 
-    fn write(&mut self, file_path: PathBuf, row: usize, col: usize, data: String) -> Result<(), Error> {
+    fn write(
+        &mut self,
+        file_path: PathBuf,
+        row: usize,
+        col: usize,
+        data: String,
+    ) -> Result<(), Error> {
         // read file if it exists
         let mut file = File::open(file_path)?;
         //  file.write(data.as_bytes()).expect("error");
         let buff = BufReader::new(file);
-
 
         // go through file lines
         for (index, line) in buff.lines().enumerate() {
@@ -80,10 +93,10 @@ impl CSVFileReader for CSVFile {
                 current_line.push(line.expect("expected line"));
 
                 // split line(string)
-                
+
                 // replace the word in column
                 // use a replace function to replace word in a specific column
-                let mut count = 0; 
+                let mut count = 0;
                 // use a replace function
                 // for mut i in current_line {
                 //     if count == col {
@@ -92,9 +105,8 @@ impl CSVFileReader for CSVFile {
                 //     count += 1;
                 //     // current_line.push(i);
                 // }
-                
-            // write to vector
-                
+
+                // write to vector
             }
         }
         // write to file
